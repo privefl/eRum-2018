@@ -180,7 +180,9 @@ class: inverse, center, middle
 
 Package's website: https://privefl.github.io/bigstatsr/
 
-Presentation available online: https://goo.gl/cv7L5s
+Presentation: https://privefl.github.io/eRum-2018/slides.html
+
+<br/>
 
 `r icon::fa("twitter")` [privefl](https://twitter.com/privefl) &nbsp;&nbsp;&nbsp;&nbsp; `r icon::fa("github")` [privefl](https://github.com/privefl) &nbsp;&nbsp;&nbsp;&nbsp; `r icon::fa("stack-overflow")` [F. Privé](https://stackoverflow.com/users/6103040/f-priv%c3%a9)
 
