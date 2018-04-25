@@ -28,23 +28,19 @@ I'm a PhD Student (2016-2019) in **Predictive Human Genetics** in Grenoble.
 
 `$$\boxed{\Large{\text{Disease} \sim \text{DNA mutations} + \cdots}}$$`
 
-&lt;img src="http://www.blacksheep-van.com/wp-content/uploads/2016/03/Blacksheep-location-de-van-ame%CC%81nage-a%CC%80-Grenoble-1.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://r-in-grenoble.github.io/cover.jpg" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ## Very large genotype matrices
 
-- currently: 15K x 300K, [celiac disease](http://www.nature.com/ng/journal/v42/n4/abs/ng.543.html)
+- previously: 15K x 280K, [celiac disease](https://doi.org/10.1038/ng.543) (~30GB)
 
-- soon: 500K x 800K, [UK Biobank](https://doi.org/10.1371/journal.pmed.1001779)
+- currently: 500K x 500K, [UK Biobank](https://doi.org/10.1101/166298) (~2TB)
  
-&lt;img src="https://media.giphy.com/media/3o7bueyxGydy48Lwgo/giphy.gif" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://media.giphy.com/media/3o7bueyxGydy48Lwgo/giphy.gif" width="55%" style="display: block; margin: auto;" /&gt;
 
----
-
-## Problem I had
-
-&lt;img src="memory-problem.svg" width="100%" style="display: block; margin: auto;" /&gt;
+.footnote[But I still wanted to use R..]
 
 ---
 
@@ -52,7 +48,7 @@ I'm a PhD Student (2016-2019) in **Predictive Human Genetics** in Grenoble.
 
 &lt;img src="memory-solution.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
-.footnote[Michael J. Kane, John Emerson, Stephen Weston (2013).]
+.footnote[`FBM` is very similar to `filebacked.big.matrix` from package {bigmemory}.]
 
 ---
 
@@ -70,49 +66,73 @@ I'm a PhD Student (2016-2019) in **Predictive Human Genetics** in Grenoble.
 
 &lt;img src="split-apply-combine.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
-.footnote[strategy coined by Hadley Wickham (2011)]
+.footnote[Implemented in `big_apply()`.]
 
 ---
 
-&lt;!-- ## Matrix operations --&gt;
+## Matrix operations
 
-&lt;!-- - (cross-)products with matrices/vectors --&gt;
+- (cross-)products with matrices/vectors
 
-&lt;!-- - special tricks for handling scaling ([vignette](https://privefl.github.io/bigstatsr/articles/operations-with-scaling.html) and [blog post](https://goo.gl/L8cNbo)) --&gt;
+- special tricks for handling scaling ([vignette](https://privefl.github.io/bigstatsr/articles/operations-with-scaling.html) and [blog post](https://goo.gl/L8cNbo))
 
-&lt;!-- &lt;br/&gt; --&gt;
+&lt;br/&gt;
 
-&lt;!-- ### Example: computation of correlation of a 100,000 x 5000 matrix --&gt;
+### Example: computation of correlation of a 100,000 x 5000 matrix
 
-&lt;!-- - `cor`: 22 minutes  --&gt;
+- `cor`: 22 minutes
 
-&lt;!-- - `big_cor`: 1 minute  --&gt;
+- `big_cor`: 1 minute
 
-&lt;!-- --- --&gt;
+---
 
 ## Similar accessor as Rcpp matrices
 
-&lt;img src="rcpp-trust.svg" width="100%" style="display: block; margin: auto;" /&gt;
+
+```cpp
+// [[Rcpp::depends(BH, bigstatsr)]]
+#include &lt;bigstatsr/BMCodeAcc.h&gt;
+
+// [[Rcpp::export]]
+NumericVector big_colsums(Environment BM) {
+  
+  XPtr&lt;FBM&gt; xpBM = BM["address"]; 
+  BMAcc&lt;double&gt; macc(xpBM); 
+  
+* size_t n = macc.nrow();
+* size_t m = macc.ncol();
+  
+  NumericVector res(m);
+  
+  for (size_t j = 0; j &lt; m; j++) 
+    for (size_t i = 0; i &lt; n; i++)
+*     res[j] += macc(i, j);
+  
+  return res;
+}
+```
 
 ---
 
 ## Partial Singular Value Decomposition
 
-15K x 100K `big.matrix`, 6 cores, K = 10, **1 min** (vs 2h in base R)
+15K x 100K, 6 cores, K = 10, **1 min** (vs 2h in base R)
 
 &lt;/br&gt;
 
-&lt;img src="https://cdn.meme.am/cache/instances/folder897/500x/75201897/speedy-gonzalez-you-are-lightning-fast.jpg" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="PC1-4.png" width="90%" style="display: block; margin: auto;" /&gt;
 
-.footnote[based on R package **RSpectra**]
+.footnote[Implementation powered by R packages {RSpectra} and {Rcpp}.]
 
 ---
 
-## Sparse linear models: **biglasso**
+## Sparse linear models
 
-&lt;img src="https://raw.githubusercontent.com/YaohuiZeng/biglasso/master/vignettes/2016-11-20_vary_p_pkgs.png" width="70%" style="display: block; margin: auto;" /&gt;
+### Predicting complex diseases
 
-.footnote[Zeng, Y., and Breheny, P. (2017).]
+15K x 280K, 6 cores, **2 min**
+
+&lt;img src="density-scores.svg" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -143,14 +163,11 @@ class: inverse, center, middle
 
 &lt;img src="recap-packages.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
-
-.footnote[Paper in preparation: "Efficient management and analysis of large-scale genome-wide data with two R packages: bigstatsr and bigsnpr".]
-
 ---
 
 ## Contributors are welcomed!
 
-&lt;img src="https://applicationsandroidfrance.com/wp-content/uploads/2012/06/cat1200.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="cat-help.jpg" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -160,9 +177,11 @@ class: inverse, center, middle
 
 &lt;br/&gt;&lt;br/&gt;
 
+Presentation: https://privefl.github.io/eRum-2018/slides.html
+
 Package's website: https://privefl.github.io/bigstatsr/
 
-Presentation: https://privefl.github.io/eRum-2018/slides.html
+DOI: [10.1093/bioinformatics/bty185](https://doi.org/10.1093/bioinformatics/bty185)
 
 &lt;br/&gt;
 
