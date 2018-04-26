@@ -40,13 +40,13 @@ knitr::include_graphics("https://r-in-grenoble.github.io/cover.jpg")
 knitr::include_graphics("https://media.giphy.com/media/3o7bueyxGydy48Lwgo/giphy.gif")
 ```
 
-.footnote[But I still wanted to use R..]
+.footnote[But I still want to use R..]
 
 ---
 
-## Solution I found
+## The solution I found
 
-```{r, out.width='100%'}
+```{r, out.width='90%'}
 knitr::include_graphics("memory-solution.svg")
 ```
 
@@ -58,7 +58,7 @@ knitr::include_graphics("memory-solution.svg")
 
 </br>
 
-```{r, out.width='80%'}
+```{r, out.width='75%'}
 knitr::include_graphics("http://i.ebayimg.com/images/i/200955927319-0-1/s-l1000.jpg")
 ```
 
@@ -68,27 +68,27 @@ knitr::include_graphics("http://i.ebayimg.com/images/i/200955927319-0-1/s-l1000.
 
 ### Apply standard R functions to big matrices (in parallel)
 
-```{r, out.width='100%'}
+```{r, out.width='95%'}
 knitr::include_graphics("split-apply-combine.svg")
 ```
 
 .footnote[Implemented in `big_apply()`.]
 
----
+<!-- --- -->
 
-## Matrix operations
+<!-- ## Matrix operations -->
 
-- (cross-)products with matrices/vectors
+<!-- - (cross-)products with matrices/vectors -->
 
-- special tricks for handling scaling ([vignette](https://privefl.github.io/bigstatsr/articles/operations-with-scaling.html) and [blog post](https://goo.gl/L8cNbo))
+<!-- - special tricks for handling scaling ([vignette](https://privefl.github.io/bigstatsr/articles/operations-with-scaling.html) and [blog post](https://goo.gl/L8cNbo)) -->
 
-<br/>
+<!-- <br/> -->
 
-### Example: computation of correlation of a 100,000 x 5000 matrix
+<!-- ### Example: computation of correlation of a 100,000 x 5000 matrix -->
 
-- `cor`: 22 minutes
+<!-- - `cor`: 22 minutes -->
 
-- `big_cor`: 1 minute
+<!-- - `big_cor`: 1 minute -->
 
 ---
 
@@ -121,7 +121,7 @@ NumericVector big_colsums(Environment BM) {
 
 ## Partial Singular Value Decomposition
 
-15K x 100K, 6 cores, K = 10, **1 min** (vs 2h in base R)
+15K $\times$ 100K -- 10 first PCs -- 6 cores -- **1 min** (vs 2h in base R)
 
 </br>
 
@@ -137,7 +137,7 @@ knitr::include_graphics("PC1-4.png")
 
 ### Predicting complex diseases
 
-15K x 280K, 6 cores, **2 min**
+15K $\times$ 280K -- 6 cores -- **2 min**
 
 ```{r, out.width='75%'}
 knitr::include_graphics("density-scores.svg")
@@ -160,19 +160,49 @@ knitr::include_graphics("density-scores.svg")
 
 ---
 
+## Bonus
+
+### When you earn 305 pts on Stack Overflow with your new package
+
+<br>
+
+```{r, out.width='85%'}
+knitr::include_graphics("bigstatsr-SO.png")
+```
+
+<br>
+
+```{r, out.width='20%'}
+knitr::include_graphics("smile-08.jpg")
+```
+
+
+---
+
 class: inverse, center, middle
 
 # I'm now able 
 # to run algorithms
 # on 100GB of data
+# on my computer
 
 ---
 
 ## R Packages
 
-```{r, out.width='100%'}
-knitr::include_graphics("recap-packages.svg")
+<br>
+
+<a href="https://doi.org/10.1093/bioinformatics/bty185" target="_blank">
+```{r, out.width='70%'}
+knitr::include_graphics("bty185.png")
 ```
+</a>
+
+<br>
+
+- {bigstatsr}: to be used by any field of research
+
+- {bigsnpr}: algorithms specific to my field of research
 
 ---
 
