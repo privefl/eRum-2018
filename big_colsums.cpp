@@ -1,5 +1,5 @@
 // [[Rcpp::depends(BH, bigstatsr)]]
-#include <bigstatsr/BMCodeAcc.h>
+#include <bigstatsr/BMAcc.h>
 
 // [[Rcpp::export]]
 NumericVector big_colsums(Environment BM) {

@@ -1,5 +1,5 @@
 ---
-title: "The R package {bigstatsr}:<br/>Memory- and Computation-Efficient Tools<br/>for Big Matrices Stored on Disk"
+title: "The R package {bigstatsr}:<br/>memory- and computation-efficient tools<br/>for big matrices stored on disk"
 subtitle: "eRum 2018"
 author: "Florian Privé (@privefl)"
 date: "May 2018"
@@ -96,7 +96,7 @@ knitr::include_graphics("split-apply-combine.svg")
 
 ```{Rcpp, echo=TRUE, eval=FALSE}
 // [[Rcpp::depends(BH, bigstatsr)]]
-#include <bigstatsr/BMCodeAcc.h>
+#include <bigstatsr/BMAcc.h>
 
 // [[Rcpp::export]]
 NumericVector big_colsums(Environment BM) {
@@ -129,13 +129,13 @@ NumericVector big_colsums(Environment BM) {
 knitr::include_graphics("PC1-4.png")
 ```
 
-.footnote[Implementation powered by R packages {RSpectra} and {Rcpp}.]
+.footnote[Implemented in `big_randomSVD()`, powered by R packages {RSpectra} and {Rcpp}.]
 
 ---
 
 ## Sparse linear models
 
-### Predicting complex diseases
+### Predicting complex diseases with a penalized logistic regression
 
 15K $\times$ 280K -- 6 cores -- **2 min**
 
@@ -148,15 +148,23 @@ knitr::include_graphics("density-scores.svg")
 ## Other functions
 
 
-- matrix operations (Split-Apply-Combine strategy)
+- matrix operations
 
-- association of each variable with an output (RcppArmadillo)
+- association of each variable with an output
 
-- plotting functions (ggplot2)
+- plotting functions
 
 - read from text files
 
-- others..
+- many other functions..
+
+<br>
+
+### Parallel
+
+- most of the functions are parallelized (memory-mapping makes it easy!)
+
+- you can parallelize you own functions with `big_parallelize()`
 
 ---
 
