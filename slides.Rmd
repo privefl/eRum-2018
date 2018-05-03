@@ -1,5 +1,5 @@
 ---
-title: "The R package {bigstatsr}:<br/>memory- and computation-efficient tools<br/>for big matrices stored on disk"
+title: "The `r icon::fa_r()` package {bigstatsr}:<br/>memory- and computation-efficient tools<br/>for big matrices stored on disk"
 subtitle: "eRum 2018"
 author: "Florian Privé (@privefl)"
 date: "May 2018"
