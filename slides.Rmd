@@ -8,7 +8,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: true
-      # autoplay: 20000
+      autoplay: 20000
 ---
 
 ```{r setup, include=FALSE}
