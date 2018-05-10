@@ -14,6 +14,10 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(echo = FALSE, fig.align = 'center')
+
+file <- "test.bk"
+if (file.exists(file)) file.remove(file)
+library(bigstatsr)
 ```
 
 class: title-slide center middle inverse
@@ -64,10 +68,29 @@ knitr::include_graphics("memory-solution.svg")
 
 ## Similar accessor as R matrices
 
+```{r, echo=TRUE}
+X <- FBM(2, 5, init = 1:10, backingfile = "test")
+```
+
+```{r, echo=TRUE}
+X$backingfile
+X[, 1]  ## ok
+X[1, ]  ## bad
+X[]     ## super bad
+```
+
+---
+
+## Similar accessor as R matrices
+
+```{r, echo=TRUE}
+colSums(X[])  ## super bad
+```
+
 </br>
 
-```{r, out.width='75%'}
-knitr::include_graphics("http://i.ebayimg.com/images/i/200955927319-0-1/s-l1000.jpg")
+```{r, out.width='70%'}
+knitr::include_graphics("caution.jpg")
 ```
 
 ---
@@ -174,23 +197,23 @@ knitr::include_graphics("density-scores.svg")
 
 - you can parallelize you own functions with `big_parallelize()`
 
----
+<!-- --- -->
 
-## Bonus
+<!-- ## Bonus -->
 
-### When you earn 305 pts on Stack Overflow with your new package
+<!-- ### When you earn 305 pts on Stack Overflow with your new package -->
 
-<br>
+<!-- <br> -->
 
-```{r, out.width='85%'}
-knitr::include_graphics("bigstatsr-SO.png")
-```
+<!-- ```{r, out.width='85%'} -->
+<!-- knitr::include_graphics("bigstatsr-SO.png") -->
+<!-- ``` -->
 
-<br>
+<!-- <br> -->
 
-```{r, out.width='20%'}
-knitr::include_graphics("smile-08.jpg")
-```
+<!-- ```{r, out.width='20%'} -->
+<!-- knitr::include_graphics("smile-08.jpg") -->
+<!-- ``` -->
 
 
 ---
@@ -229,6 +252,10 @@ knitr::include_graphics("cat-help.jpg")
 ```
 
 ---
+
+```{r cleanup, include=FALSE}
+if (file.exists(file)) file.remove(file)
+```
 
 class: inverse, center, middle
 

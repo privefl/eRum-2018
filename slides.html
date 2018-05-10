@@ -298,7 +298,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})();</script>
+})();
+setInterval(function() {slideshow.gotoNextSlide();}, 20000);</script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
